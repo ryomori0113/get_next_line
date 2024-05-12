@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 12:47:32 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/12 17:00:32 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,38 @@
 
 char	*get_next_line(int fd)
 {
-	char	*baketu;
-	int		rd_num;
-	char	*tmp;
-	int		i;
-	char static	*save;
-	char	*line;
+	static char	*save;
+	char		*buf;
+	char		*result;
 
-	baketu = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	line = NULL;
-	tmp = "";
-	if (baketu == NULL)
+	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (buf == NULL)
 		return (NULL);
+	result = rd_file(fd, save, buf);
+}
 
-		rd_num = read(fd, baketu, BUFFER_SIZE);
-		i = 0;
-		while (i < BUFFER_SIZE)
-		{
-			if(baketu[i] == '\n')
-			{
-				save[i] = baketu[i];
-				break;
-			}
-			else
-				save[i] = baketu[i];
-		}
-		tmp = ft_strjoin(line, baketu);
-		printf ("%s", tmp);
-	return (NULL);
+char	*rd_file(int fd, char *buffer_save, char *buf)
+{
+	size_t	count_byt;
+	char	*tmp;
+	char	*read_line;
+
+	count_byt = 0;
+	read_line = NULL;
+	read_line = ft_strchr(buffer_save, '\n');
+
+	while (read_line == NULL)
+	{
+		count_byt = read(fd, buf, BUFFER_SIZE);
+		if (count_byt <= 0)
+			return (NULL);
+		buf[count_byt] = 0;
+		tmp = ft_strjoin(buffer_save, buf);
+		free(buffer_save);
+		buffer_save = tmp;
+		read_line = ft_strchr(buffer_save, '\n');
+	}
+	
 }
 
 int main ()

@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:47 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 12:32:35 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/12 16:41:28 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-static char	*ft_strcpy(char *dest, char *src)
+static char	*ft_strcpy(char *dest, char *src, size_t n)
 {
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src[i] && i < n)
 	{
 		dest[i] = src[i];
 		i++;
@@ -38,7 +38,7 @@ static char	*ft_strcpy(char *dest, char *src)
 	return (dest + i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, size_t n)
 {
 	char	*t;
 	int		total;
@@ -53,7 +53,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	t = (char *)malloc(sizeof(char) * total + 1);
 	if (t == NULL)
 		return (NULL);
-	ft_strcpy(t, (char *)s1);
-	ft_strcpy(ft_strcpy(t, (char *)s1), (char *)s2);
+	ft_strcpy(ft_strcpy(t, (char *)s1, ft_strlen((char *)s1)), (char *)s2, n);
 	return (t);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char)c)
+		{
+			return ((char *)s + i);
+		}
+		i++;
+	}
+	if (c == '\0')
+		return ((char *)s + i);
+	return (0);
 }
