@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 11:27:47 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 12:32:35 by ryomori          ###   ########.fr       */
+/*   Created: 2024/04/19 13:36:21 by ryomori           #+#    #+#             */
+/*   Updated: 2024/05/11 12:11:26 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 static char	*ft_strcpy(char *dest, char *src)
 {
@@ -57,3 +57,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strcpy(ft_strcpy(t, (char *)s1), (char *)s2);
 	return (t);
 }
+
+// #include <stdio.h>
+
+// int main ()
+// {
+// 	char i[] = "1234567890";
+// 	char j[] = "abcdefghjk";
+
+// 	printf("%s\n", ft_strjoin(i, j));
+// 	return (0);
+// }
