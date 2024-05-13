@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 16:08:45 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:49:11 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_buffer(char *buffer)
 	}
 }
 
-char	*get_result(int nl_num, char *buffer_s)
+char	*get_result(int nl_num, char **buffer_s)
 {
 	char	*result;
 	char	*tmp;
@@ -29,24 +29,24 @@ char	*get_result(int nl_num, char *buffer_s)
 	tmp = NULL;
 	if (nl_num <= 0)
 	{
-		if (*buffer_s == '\0')
+		if (**buffer_s == '\0')
 		{
-			free(buffer_s);
-			buffer_s = NULL;
+			free(*buffer_s);
+			*buffer_s = NULL;
 			return (NULL);
 		}
-		result = buffer_s;
-		buffer_s = NULL;
+		result = *buffer_s;
+		*buffer_s = NULL;
 		return (result);
 	}
-	tmp = ft_substr(buffer_s, nl_num, BUFFER_SIZE);
-	result = buffer_s;
+	tmp = ft_substr(*buffer_s, nl_num, BUFFER_SIZE);
+	result = *buffer_s;
 	result[nl_num] = '\0';
-	buffer_s = tmp;
+	*buffer_s = tmp;
 	return (result);
 }
 
-char	*rd_file(int fd, char *buffer_save, char *buf)
+char	*rd_file(int fd, char **buffer_save, char *buf)
 {
 	size_t	count_byt;
 	char	*tmp;
@@ -54,7 +54,7 @@ char	*rd_file(int fd, char *buffer_save, char *buf)
 
 	count_byt = 0;
 	read_line = NULL;
-	read_line = ft_strchr(buffer_save, '\n');
+	read_line = ft_strchr(*buffer_save, '\n');
 
 	while (read_line == NULL)
 	{
@@ -62,12 +62,12 @@ char	*rd_file(int fd, char *buffer_save, char *buf)
 		if (count_byt <= 0)
 			return (get_result(count_byt, buffer_save));
 		buf[count_byt] = 0;
-		tmp = ft_strjoin(buffer_save, buf);
-		free_buffer(buffer_save);
-		buffer_save = tmp;
-		read_line = ft_strchr(buffer_save, '\n');
+		tmp = ft_strjoin(*buffer_save, buf);
+		free_buffer(*buffer_save);
+		*buffer_save = tmp;
+		read_line = ft_strchr(*buffer_save, '\n');
 	}
-	return (get_result((read_line - buffer_save) + 1, buffer_save));
+	return (get_result((read_line - *buffer_save) + 1, buffer_save));
 }
 
 char	*get_next_line(int fd)
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (save == NULL)
 		save = ft_strdup("");
-	result = rd_file(fd, save, buf_baket);
+	result = rd_file(fd, &save, buf_baket);
 	return (result);
 }
 
@@ -133,7 +133,7 @@ int main ()
 
 	fd = open("cat.txt", O_RDONLY);
 	i = 0;
-	while (i < 3)
+	while (i < 10)
 	{
 		printf("%s", get_next_line(fd));
 		i++;
