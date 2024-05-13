@@ -6,23 +6,11 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 17:00:32 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 12:55:25 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*get_next_line(int fd)
-{
-	static char	*save;
-	char		*buf;
-	char		*result;
-
-	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (buf == NULL)
-		return (NULL);
-	result = rd_file(fd, save, buf);
-}
 
 char	*rd_file(int fd, char *buffer_save, char *buf)
 {
@@ -38,15 +26,109 @@ char	*rd_file(int fd, char *buffer_save, char *buf)
 	{
 		count_byt = read(fd, buf, BUFFER_SIZE);
 		if (count_byt <= 0)
-			return (NULL);
+			return (get_result(count_byt, buffer_save));
 		buf[count_byt] = 0;
 		tmp = ft_strjoin(buffer_save, buf);
-		free(buffer_save);
+		free_buffer(buffer_save);
 		buffer_save = tmp;
 		read_line = ft_strchr(buffer_save, '\n');
 	}
-	
+	return (get_result((read_line - buffer_save) + 1, buffer_save));
 }
+
+void	free_buffer(char *buffer)
+{
+	if (buffer != NULL)
+	{
+		free(buffer);
+		buffer = NULL;
+	}
+}
+
+char	*get_result(int nl_num, char *buffer_s)
+{
+	char	*result;
+	char	*tmp;
+
+	tmp = NULL;
+	if (nl_num <= 0)
+	{
+		if (buffer_s == '\0')
+		{
+			free(buffer_s);
+			buffer_s = NULL;
+			return (NULL);
+		}
+		result = buffer_s;
+		buffer_s = NULL;
+		return (result);
+	}
+	tmp = ft_substr(tmp, nl_num, BUFFER_SIZE);
+	result = buffer_s;
+	result[nl_num] = '\0';
+	buffer_s = tmp;
+	return (result);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*save;
+	char		*buf_baket;
+	char		*result;
+
+	buf_baket = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (buf_baket == NULL)
+		return (NULL);
+	result = rd_file(fd, save, buf_baket);
+	return (result);
+}
+
+
+
+
+
+
+
+
+
+// char	*get_next_line(int fd)
+// {
+// 	char	*baketu;
+// 	char	*tmp;
+// 	size_t		i;
+// 	static char	*save;
+// 	int	flag;
+
+// 	flag = 0;
+// 	baketu = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+// 	if (baketu == NULL)
+// 		return (NULL);
+// 	baketu[BUFFER_SIZE] ='\0';
+// 	tmp = "";
+// 	while(1)
+// 	{
+// 		read(fd, baketu, BUFFER_SIZE);
+// 		i = 0;
+// 		while (i < BUFFER_SIZE)
+// 		{
+// 			if(baketu[i] == '\n')
+// 			{
+// 				tmp = ft_strjoin(tmp, baketu, i);
+// 				save = ft_substr(baketu, i, BUFFER_SIZE - i);
+// 				flag = 1;
+// 				break;
+
+// 			}
+// 			i++;
+// 		}
+// 		if (flag)
+// 			break;
+// 		read(fd, baketu, BUFFER_SIZE);
+// 		tmp = ft_strjoin(tmp, baketu, i);
+// 		printf ("%s", tmp);
+// 	}
+// 	return (tmp);
+// }
 
 int main ()
 {

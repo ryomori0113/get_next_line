@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:57 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 14:02:33 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 12:54:52 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@
 # define	BUFFER_SIZE 4
 #endif
 
-char	*ft_strjoin(char const *s1, char const *s2, size_t n);
-char	*ft_strcpy(char *dest, char *src);
 size_t	ft_strlen(const char *str);
+char	*ft_strcpy(char *dest, char *src);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
-
+char	*get_result(int nl_num, char *buffer_s);
+char	*rd_file(int fd, char *buffer_save, char *buf);
+void	free_buffer(char *buffer);
 #endif

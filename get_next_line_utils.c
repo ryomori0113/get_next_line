@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:47 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/12 16:41:28 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 12:37:59 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-static char	*ft_strcpy(char *dest, char *src, size_t n)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
 
 	i = 0;
-	while (src[i] && i < n)
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -38,7 +38,7 @@ static char	*ft_strcpy(char *dest, char *src, size_t n)
 	return (dest + i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*t;
 	int		total;
@@ -53,7 +53,8 @@ char	*ft_strjoin(char const *s1, char const *s2, size_t n)
 	t = (char *)malloc(sizeof(char) * total + 1);
 	if (t == NULL)
 		return (NULL);
-	ft_strcpy(ft_strcpy(t, (char *)s1, ft_strlen((char *)s1)), (char *)s2, n);
+	ft_strcpy(t, (char *)s1);
+	ft_strcpy(ft_strcpy(t, (char *)s1), (char *)s2);
 	return (t);
 }
 
@@ -73,4 +74,32 @@ char	*ft_strchr(const char *s, int c)
 	if (c == '\0')
 		return ((char *)s + i);
 	return (0);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char					*t;
+	size_t					i;
+	unsigned int			k;
+
+	t = NULL;
+	if (s == NULL)
+		return (t);
+	k = ft_strlen(s);
+	if (k < start)
+		len = 0 ;
+	if ((k - start) < len)
+		len = k - start;
+	t = (char *)malloc(sizeof(char) *(len + 1));
+	if (t)
+	{
+		i = 0;
+		while (len-- && s[start + i])
+		{
+			t[i] = s[start + i];
+			i++;
+		}
+		t[i] = '\0';
+	}
+	return (t);
 }
