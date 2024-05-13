@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 12:55:25 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 13:33:26 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,6 @@ char	*get_next_line(int fd)
 	result = rd_file(fd, save, buf_baket);
 	return (result);
 }
-
-
-
-
-
-
-
-
 
 // char	*get_next_line(int fd)
 // {
