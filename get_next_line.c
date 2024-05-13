@@ -6,35 +6,11 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 13:58:45 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 14:01:49 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*rd_file(int fd, char *buffer_save, char *buf)
-{
-	size_t	count_byt;
-	char	*tmp;
-	char	*read_line;
-
-	count_byt = 0;
-	read_line = NULL;
-	read_line = ft_strchr(buffer_save, '\n');
-
-	while (read_line == NULL)
-	{
-		count_byt = read(fd, buf, BUFFER_SIZE);
-		if (count_byt <= 0)
-			return (get_result(count_byt, buffer_save));
-		buf[count_byt] = 0;
-		tmp = ft_strjoin(buffer_save, buf);
-		free_buffer(buffer_save);
-		buffer_save = tmp;
-		read_line = ft_strchr(buffer_save, '\n');
-	}
-	return (get_result((read_line - buffer_save) + 1, buffer_save));
-}
 
 void	free_buffer(char *buffer)
 {
@@ -68,6 +44,30 @@ char	*get_result(int nl_num, char *buffer_s)
 	result[nl_num] = '\0';
 	buffer_s = tmp;
 	return (result);
+}
+
+char	*rd_file(int fd, char *buffer_save, char *buf)
+{
+	size_t	count_byt;
+	char	*tmp;
+	char	*read_line;
+
+	count_byt = 0;
+	read_line = NULL;
+	read_line = ft_strchr(buffer_save, '\n');
+
+	while (read_line == NULL)
+	{
+		count_byt = read(fd, buf, BUFFER_SIZE);
+		if (count_byt <= 0)
+			return (get_result(count_byt, buffer_save));
+		buf[count_byt] = 0;
+		tmp = ft_strjoin(buffer_save, buf);
+		free_buffer(buffer_save);
+		buffer_save = tmp;
+		read_line = ft_strchr(buffer_save, '\n');
+	}
+	return (get_result((read_line - buffer_save) + 1, buffer_save));
 }
 
 char	*get_next_line(int fd)
