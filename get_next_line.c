@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 13:33:26 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 13:58:45 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*get_result(int nl_num, char *buffer_s)
 		buffer_s = NULL;
 		return (result);
 	}
-	tmp = ft_substr(tmp, nl_num, BUFFER_SIZE);
+	tmp = ft_substr(buffer_s, nl_num, BUFFER_SIZE);
 	result = buffer_s;
 	result[nl_num] = '\0';
 	buffer_s = tmp;
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	return (result);
 }
 
-// char	*get_next_line(int fd)
+// char	*get_next_line(int fd)　関係ない
 // {
 // 	char	*baketu;
 // 	char	*tmp;
@@ -120,7 +120,7 @@ char	*get_next_line(int fd)
 // 		printf ("%s", tmp);
 // 	}
 // 	return (tmp);
-// }
+// }							関係ない
 
 int main ()
 {
