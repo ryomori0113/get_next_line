@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 14:01:49 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:55:48 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_result(int nl_num, char *buffer_s)
 	tmp = NULL;
 	if (nl_num <= 0)
 	{
-		if (buffer_s == '\0')
+		if (*buffer_s == '\0')
 		{
 			free(buffer_s);
 			buffer_s = NULL;
@@ -79,6 +79,8 @@ char	*get_next_line(int fd)
 	buf_baket = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buf_baket == NULL)
 		return (NULL);
+	if (save == NULL)
+		save = ft_strdup("");
 	result = rd_file(fd, save, buf_baket);
 	return (result);
 }
@@ -126,13 +128,12 @@ int main ()
 {
 	int	fd;
 	int	i;
-	char	buf[100];
 
 	fd = open("cat.txt", O_RDONLY);
 	i = 0;
-	while (i < 1)
+	while (i < 9)
 	{
-		printf("%s\n", get_next_line(fd));
+		printf("%s", get_next_line(fd));
 		i++;
 	}
 	close(fd);

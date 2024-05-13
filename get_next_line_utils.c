@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:47 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 12:37:59 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:13:35 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,23 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest + i);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*t;
-	int		total;
+	char	*newarray;
+	size_t	len;
+	int		i;
 
-	if (s1 == NULL && s2 == NULL)
+	i = 0;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	newarray = malloc(sizeof(char) * (len + 1));
+	if (!newarray)
 		return (NULL);
-	if (s1 == NULL)
-		s1 = "";
-	if (s2 == NULL)
-		s2 = "";
-	total = (ft_strlen((char *)s1) + ft_strlen((char *)s2));
-	t = (char *)malloc(sizeof(char) * total + 1);
-	if (t == NULL)
-		return (NULL);
-	ft_strcpy(t, (char *)s1);
-	ft_strcpy(ft_strcpy(t, (char *)s1), (char *)s2);
-	return (t);
+	while (*s1)
+		newarray[i++] = *s1++;
+	while (*s2)
+		newarray[i++] = *s2++;
+	newarray[i] = 0;
+	return (newarray);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -102,4 +87,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		t[i] = '\0';
 	}
 	return (t);
+}
+
+char	*ft_strdup(const char *str)
+{
+	return (ft_substr(str, 0, ft_strlen(str)));
 }

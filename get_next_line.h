@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:57 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 12:54:52 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:48:08 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 #endif
 
 #ifndef	BUFFER_SIZE
-# define	BUFFER_SIZE 4
+# define	BUFFER_SIZE 6
 #endif
 
 size_t	ft_strlen(const char *str);
-char	*ft_strcpy(char *dest, char *src);
+char	*ft_strdup(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
