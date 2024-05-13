@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 15:55:48 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:08:45 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ char	*get_next_line(int fd)
 	char		*buf_baket;
 	char		*result;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	buf_baket = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buf_baket == NULL)
 		return (NULL);
@@ -131,7 +133,7 @@ int main ()
 
 	fd = open("cat.txt", O_RDONLY);
 	i = 0;
-	while (i < 9)
+	while (i < 3)
 	{
 		printf("%s", get_next_line(fd));
 		i++;

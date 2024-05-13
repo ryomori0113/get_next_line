@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:57 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 15:48:08 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:06:55 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #endif
 
 #ifndef	BUFFER_SIZE
-# define	BUFFER_SIZE 6
+# define	BUFFER_SIZE 1
 #endif
 
 size_t	ft_strlen(const char *str);
