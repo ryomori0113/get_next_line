@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 14:46:29 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 16:50:33 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ static char	*rd_file(int fd, char **buffer_save, char *buf)
 	while (read_line == NULL)
 	{
 		count_byt = read(fd, buf, BUFFER_SIZE);
-		if (count_byt == -1)
+		if (count_byt < 0)
 		{
 			free_buffer(buffer_save);
 			return (NULL);
 		}
-		if (count_byt <= 0)
+		if (count_byt == 0)
 			return (get_result(count_byt, buffer_save));
 		buf[count_byt] = '\0';
 		tmp = ft_strjoin(*buffer_save, buf);
@@ -86,9 +86,14 @@ char	*get_next_line(int fd)
 	if (buf_baket == NULL)
 		return (NULL);
 	if (!save)
+	{
 		save = ft_strdup("");
-	if (save == NULL)
-		return (NULL);
+		if (save == NULL)
+		{
+			free(buf_baket);
+			return (NULL);
+		}
+	}
 	result = rd_file(fd, &save, buf_baket);
 	free_buffer(&buf_baket);
 	return (result);
