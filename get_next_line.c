@@ -6,13 +6,13 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 14:34:50 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 14:46:29 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	free_buffer(char **buffer)
+static void	free_buffer(char **buffer)
 {
 	if (*buffer != NULL)
 	{
@@ -21,7 +21,7 @@ void	free_buffer(char **buffer)
 	}
 }
 
-char	*get_result(int nl_num, char **buffer_s)
+static char	*get_result(int nl_num, char **buffer_s)
 {
 	char	*result;
 	char	*tmp;
@@ -46,7 +46,7 @@ char	*get_result(int nl_num, char **buffer_s)
 	return (result);
 }
 
-char	*rd_file(int fd, char **buffer_save, char *buf)
+static char	*rd_file(int fd, char **buffer_save, char *buf)
 {
 	ssize_t	count_byt;
 	char	*tmp;
