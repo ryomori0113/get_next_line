@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:57 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 10:09:04 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 14:31:59 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#ifndef	MAX_DESC
-# define	MAX_DESC 256
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1
 #endif
 
-#ifndef	BUFFER_SIZE
-# define	BUFFER_SIZE 1
-#endif
-
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t		ft_strlen(const char *str);
+char		*ft_strdup(const char *str);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strchr(const char *s, int c);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 char	*get_result(int nl_num, char **buffer_s);
 char	*rd_file(int fd, char **buffer_save, char *buf);

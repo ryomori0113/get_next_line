@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 11:47:10 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 14:33:13 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_buffer(char **buffer)
 	if (*buffer != NULL)
 	{
 		free(*buffer);
-		buffer = NULL;
+		*buffer = NULL;
 	}
 }
 
@@ -55,11 +55,15 @@ char	*rd_file(int fd, char **buffer_save, char *buf)
 	tmp = NULL;
 	count_byt = 0;
 	read_line = ft_strchr(*buffer_save, '\n');
-
 	while (read_line == NULL)
 	{
 		count_byt = read(fd, buf, BUFFER_SIZE);
-		if (count_byt == 0 || count_byt == -1)
+		if (count_byt == -1)
+		{
+			free_buffer(buffer_save);
+			return (NULL);
+		}
+		if (count_byt <= 0)
 			return (get_result(count_byt, buffer_save));
 		buf[count_byt] = '\0';
 		tmp = ft_strjoin(*buffer_save, buf);
