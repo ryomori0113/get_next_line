@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 14:33:13 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 14:34:26 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,45 +93,6 @@ char	*get_next_line(int fd)
 	free_buffer(&buf_baket);
 	return (result);
 }
-
-// char	*get_next_line(int fd)　関係ない
-// {
-// 	char	*baketu;
-// 	char	*tmp;
-// 	size_t		i;
-// 	static char	*save;
-// 	int	flag;
-
-// 	flag = 0;
-// 	baketu = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-// 	if (baketu == NULL)
-// 		return (NULL);
-// 	baketu[BUFFER_SIZE] ='\0';
-// 	tmp = "";
-// 	while(1)
-// 	{
-// 		read(fd, baketu, BUFFER_SIZE);
-// 		i = 0;
-// 		while (i < BUFFER_SIZE)
-// 		{
-// 			if(baketu[i] == '\n')
-// 			{
-// 				tmp = ft_strjoin(tmp, baketu, i);
-// 				save = ft_substr(baketu, i, BUFFER_SIZE - i);
-// 				flag = 1;
-// 				break;
-
-// 			}
-// 			i++;
-// 		}
-// 		if (flag)
-// 			break;
-// 		read(fd, baketu, BUFFER_SIZE);
-// 		tmp = ft_strjoin(tmp, baketu, i);
-// 		printf ("%s", tmp);
-// 	}
-// 	return (tmp);
-// }							関係ない
 
 // int main ()
 // {
