@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:57 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 16:42:55 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 10:09:04 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 char	*get_result(int nl_num, char **buffer_s);
 char	*rd_file(int fd, char **buffer_save, char *buf);
-void	free_buffer(char *buffer);
+void	free_buffer(char **buffer);
 #endif

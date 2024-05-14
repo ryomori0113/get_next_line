@@ -6,17 +6,17 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/13 16:49:11 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 11:47:10 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	free_buffer(char *buffer)
+void	free_buffer(char **buffer)
 {
-	if (buffer != NULL)
+	if (*buffer != NULL)
 	{
-		free(buffer);
+		free(*buffer);
 		buffer = NULL;
 	}
 }
@@ -48,22 +48,22 @@ char	*get_result(int nl_num, char **buffer_s)
 
 char	*rd_file(int fd, char **buffer_save, char *buf)
 {
-	size_t	count_byt;
+	ssize_t	count_byt;
 	char	*tmp;
 	char	*read_line;
 
+	tmp = NULL;
 	count_byt = 0;
-	read_line = NULL;
 	read_line = ft_strchr(*buffer_save, '\n');
 
 	while (read_line == NULL)
 	{
 		count_byt = read(fd, buf, BUFFER_SIZE);
-		if (count_byt <= 0)
+		if (count_byt == 0 || count_byt == -1)
 			return (get_result(count_byt, buffer_save));
-		buf[count_byt] = 0;
+		buf[count_byt] = '\0';
 		tmp = ft_strjoin(*buffer_save, buf);
-		free_buffer(*buffer_save);
+		free_buffer(buffer_save);
 		*buffer_save = tmp;
 		read_line = ft_strchr(*buffer_save, '\n');
 	}
@@ -81,9 +81,12 @@ char	*get_next_line(int fd)
 	buf_baket = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buf_baket == NULL)
 		return (NULL);
-	if (save == NULL)
+	if (!save)
 		save = ft_strdup("");
+	if (save == NULL)
+		return (NULL);
 	result = rd_file(fd, &save, buf_baket);
+	free_buffer(&buf_baket);
 	return (result);
 }
 
@@ -126,18 +129,18 @@ char	*get_next_line(int fd)
 // 	return (tmp);
 // }							関係ない
 
-int main ()
-{
-	int	fd;
-	int	i;
+// int main ()
+// {
+// 	int	fd;
+// 	int	i;
 
-	fd = open("cat.txt", O_RDONLY);
-	i = 0;
-	while (i < 10)
-	{
-		printf("%s", get_next_line(fd));
-		i++;
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open("cat.txt", O_RDONLY);
+// 	i = 0;
+// 	while (i < 10)
+// 	{
+// 		printf("%s", get_next_line(fd));
+// 		i++;
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
