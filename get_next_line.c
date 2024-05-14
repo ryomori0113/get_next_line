@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 17:11:02 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:42:57 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,10 @@ static char	*rd_file(int fd, char **buffer_save, char *buf)
 {
 	ssize_t	count_byt;
 	char	*tmp;
-	char	*read_line;
 
 	tmp = NULL;
 	count_byt = 0;
-	read_line = ft_strchr(*buffer_save, '\n');
-	while (read_line == NULL)
+	while (ft_strchr(*buffer_save, '\n') == NULL)
 	{
 		count_byt = read(fd, buf, BUFFER_SIZE);
 		if (count_byt < 0)
@@ -66,14 +64,14 @@ static char	*rd_file(int fd, char **buffer_save, char *buf)
 		if (count_byt == 0)
 			return (get_result(count_byt, buffer_save));
 		buf[count_byt] = '\0';
-		tmp = NULL;//ft_strjoin(*buffer_save, buf);
+		tmp = ft_strjoin(*buffer_save, buf);
 		if (tmp == NULL)
 			return (NULL);
 		free_buffer(buffer_save);
 		*buffer_save = tmp;
-		read_line = ft_strchr(*buffer_save, '\n');
 	}
-	return (get_result((read_line - *buffer_save) + 1, buffer_save));
+	return (get_result((ft_strchr(*buffer_save, '\n')
+				- *buffer_save) + 1, buffer_save));
 }
 
 char	*get_next_line(int fd)
@@ -93,6 +91,7 @@ char	*get_next_line(int fd)
 		if (save == NULL)
 		{
 			free(buf_baket);
+			free(save);
 			return (NULL);
 		}
 	}

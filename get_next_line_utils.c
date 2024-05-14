@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:27:47 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 10:33:11 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:39:33 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if ((k - start) < len)
 		len = k - start;
 	t = (char *)malloc(sizeof(char) *(len + 1));
+	
 	if (t)
 	{
 		i = 0;
