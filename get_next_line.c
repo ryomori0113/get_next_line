@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:26:14 by ryomori           #+#    #+#             */
-/*   Updated: 2024/05/14 17:42:57 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/05/15 11:00:47 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*rd_file(int fd, char **buffer_save, char *buf)
 		buf[count_byt] = '\0';
 		tmp = ft_strjoin(*buffer_save, buf);
 		if (tmp == NULL)
-			return (NULL);
+			return (free_buffer(buffer_save), NULL);
 		free_buffer(buffer_save);
 		*buffer_save = tmp;
 	}
@@ -100,26 +100,26 @@ char	*get_next_line(int fd)
 	return (result);
 }
 
-// int main ()
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*s;
+int main ()
+{
+	int		fd;
+	int		i;
+	char	*s;
 
-// 	fd = open("cat.txt", O_RDONLY);
-// 	i = 0;
-// 	while (i < 10)
-// 	{
-// 		s =  get_next_line(fd);
-// 		printf("%s",s);
-// 		free(s);
-// 		i++;
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+	fd = open("cat.txt", O_RDONLY);
+	i = 0;
+	while (i < 10)
+	{
+		s =  get_next_line(fd);
+		printf("%s",s);
+		free(s);
+		i++;
+	}
+	close(fd);
+	return (0);
+}
 
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q a.out");
-// }
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q a.out");
+}
